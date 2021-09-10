@@ -1,27 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Player from './Player';
+import React from "react";
+import Player from "./Player";
+import { Consumer } from "./context";
 
-const PlayerList = (props) => {
+const PlayerList = () => {
   return (
-    <React.Fragment>
-      {props.players.map( (player, index) =>
-        <Player 
-          {...player}
-          key={player.id.toString()} 
-          index={index}
-          changeScore={props.changeScore}
-          removePlayer={props.removePlayer}           
-        />
-      )}
-    </React.Fragment>
-  );
-}
+    <Consumer>
+      {({ players }) => {
 
-PlayerList.propTypes = {
-  players: PropTypes.arrayOf(PropTypes.object),
-  changeScore: PropTypes.func.isRequired,
-  removePlayer: PropTypes.func.isRequired,
+        return (
+          <React.Fragment>
+            {players.map((player, index) => (
+              <Player
+                key={player.id.toString()}
+                index={index}
+              />
+            ))}
+        </React.Fragment>
+        )
+      }}
+    </Consumer>
+  );
 };
 
 export default PlayerList;
